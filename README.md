@@ -2,6 +2,19 @@
 
 This project builds and compares machine learning classifiers for detecting fraudulent credit card transactions in a highly imbalanced dataset. It explores how class weighting and classification thresholds affect the balance between detecting fraud and incorrectly flagging legitimate transactions.
 
+## Demo
+
+The Streamlit demo runs the saved Balanced Random Forest with its stored decision threshold. **Single Transaction** lets you analyze predefined examples, compare predictions with actual labels, and inspect the model inputs. The examples include a false positive and missed fraud. **Batch Prediction** accepts a CSV containing all 30 model features, excludes extra columns from inference, and lets you download the original data with fresh `FraudScore` and `Prediction` columns.
+
+From the repository root, install dependencies and launch the app:
+
+```bash
+pip install -r requirements.txt
+streamlit run app/app.py
+```
+
+The app uses `models/credit_card_fraud_model.joblib` and `sample_transactions.csv`. For the existing artifact, it reads the ordered feature names from the fitted model's `feature_names_in_`; packages with a separate `feature_names` entry use that entry instead. Scores are classification scores, not calibrated fraud probabilities. The demo performs inference only, with no training or threshold tuning.
+
 ## Project Goal
 
 Fraudulent transactions are extremely rare compared with legitimate transactions. A classifier that predicts every transaction as normal can achieve very high accuracy while detecting no fraud. The project therefore focuses on Precision, Recall, F1 Score, and Average Precision rather than accuracy alone.
